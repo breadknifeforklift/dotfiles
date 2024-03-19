@@ -15,7 +15,7 @@ echo -n "$password" > /tmp/secret.key
 sudo nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"$device"'
 
 # set user password
-mkdir /mnt/persist/passwords
+sudo mkdir /mnt/persist/passwords
 sudo mkpasswd -m sha-512 "$password" > /mnt/persist/passwords/stephan
 
 # Generate hardware-configuration.nix
@@ -23,9 +23,10 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 
 # Initialize flake
 pushd /mnt/etc/nixos
-nix --extra-experimental-features "nix-command flakes" flake init --template github:breadknifeforklift/nixos-config
+sudo rm -f configuration.nix
+sudo nix --extra-experimental-features "nix-command flakes" flake init --template github:breadknifeforklift/nixos-config
 
-find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
+sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
 nixos-install --root /mnt --flake /mnt/etc/nixos#nixos

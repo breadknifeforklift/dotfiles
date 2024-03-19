@@ -1,6 +1,6 @@
 #!/bin/sh
 
-curl https://raw.githubusercontent.com/breadknifeforklift/nixos-config/main/disko.nix -O /tmp/disko.nix
+curl https://raw.githubusercontent.com/breadknifeforklift/nixos-config/main/disko.nix -o /tmp/disko.nix
 
 # List the disks and ask the user to select one
 echo "Available disks:"

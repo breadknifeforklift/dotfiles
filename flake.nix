@@ -31,7 +31,7 @@
         specialArgs = { inherit inputs device; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default
-          (import ./disko.nix { inherit device; })
+          (import ./disko.nix)
 
           ./configuration.nix
           inputs.home-manager.nixosModules.default

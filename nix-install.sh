@@ -24,7 +24,7 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 pushd /mnt/etc/nixos
 nix flake init --template github.com:breadknifeforklift/nixos-config
 
-sed 
+find flake.nix -type f -exec sed -i "s|device = \"sda\"|device = \"$device\"|g" {} \;
 
 # Install NixOS
 nixos-install --root /mnt --flake /mnt/etc/nixos#nixos

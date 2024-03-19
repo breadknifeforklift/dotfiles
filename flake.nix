@@ -1,6 +1,6 @@
 {
   description = "Nixos config flake";
-  device = "sda"
+  device = "sda";
   # what is consumed (previously provided by channels and fetchTarball)
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";

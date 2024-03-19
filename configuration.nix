@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, device, ... }:
 
 {
   imports =
@@ -35,10 +35,10 @@
       description = "Rollback btrfs rootfs";
       wantedBy = [ "initrd.target" ];
       requires = [
-        "dev-xvda3"
+        "dev-${device}3"
       ];
       after = [
-        "dev-xvda3"
+        "dev-${device}3"
         "systemd-cryptsetup@nixenc.service"
       ];
       before = [ "sysroot.mount" ];
@@ -111,7 +111,7 @@
   users.users.stephan = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    passwordFile = "/persist/passwords/stephan";
+    hashedPassword = "/persist/passwords/stephan";
   };
 
   environment.systemPackages = with pkgs; [

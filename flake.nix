@@ -1,5 +1,6 @@
 {
   description = "Nixos config flake";
+  device = "sda"
   # what is consumed (previously provided by channels and fetchTarball)
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -27,10 +28,10 @@
   }@inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; }; # forward inputs to modules
+        specialArgs = { inherit inputs device; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default
-          (import ./disko.nix { device = "/dev/xvda"; })
+          (import ./disko.nix { inherit device; })
 
           ./configuration.nix
           inputs.home-manager.nixosModules.default

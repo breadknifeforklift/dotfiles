@@ -15,6 +15,8 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    device = "sda";
   };
 
   # what will be produced (i.e. the build)
@@ -32,10 +34,10 @@
 
     nixosConfigurations = let device = "sda"; in {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs device; }; # forward inputs to modules
+        specialArgs = { inherit inputs; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default
-          (import ./disko.nix)
+          (import ./disko.nix { device = inputs.device; })
 
           ./configuration.nix
           inputs.home-manager.nixosModules.default

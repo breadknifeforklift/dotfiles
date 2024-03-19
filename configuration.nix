@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, device, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -35,10 +35,10 @@
       description = "Rollback btrfs rootfs";
       wantedBy = [ "initrd.target" ];
       requires = [
-        "dev-${device}3"
+        "dev-${inputs.device}3"
       ];
       after = [
-        "dev-${device}3"
+        "dev-${inputs.device}3"
         "systemd-cryptsetup@nixenc.service"
       ];
       before = [ "sysroot.mount" ];

@@ -27,7 +27,7 @@
   }@inputs: {
     templates.default = {
       description = "My default template";
-      path = ".";
+      path = .;
     };
 
     nixosConfigurations = let device = "sda"; in {

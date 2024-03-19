@@ -25,27 +25,22 @@
     home-manager,
     ...
   }@inputs: {
-    let
-      device = "sda";
-    in
-    {
-      templates.default = {
-        description = "My default template";
-        path = ".";
-      };
+    templates.default = {
+      description = "My default template";
+      path = ".";
+    };
 
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs device; }; # forward inputs to modules
-          modules = [
-            inputs.disko.nixosModules.default
-            (import ./disko.nix)
+    nixosConfigurations = let device = "sda"; in {
+      nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs device; }; # forward inputs to modules
+        modules = [
+          inputs.disko.nixosModules.default
+          (import ./disko.nix)
 
-            ./configuration.nix
-            inputs.home-manager.nixosModules.default
-            inputs.impermanence.nixosModules.impermanence
-          ];
-        };
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+          inputs.impermanence.nixosModules.impermanence
+        ];
       };
     };
   };

@@ -32,7 +32,7 @@
       path = .;
     };
 
-    nixosConfigurations = let device = "sda"; in {
+    nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; }; # forward inputs to modules
         modules = [

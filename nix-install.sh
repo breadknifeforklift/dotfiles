@@ -16,7 +16,7 @@ sudo nix --extra-experimental-features "nix-command flakes" run github:nix-commu
 
 # set user password
 sudo mkdir /mnt/persist/passwords
-echo "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwords/stephan/ > /dev/null
+echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwords/stephan/ > /dev/null
 
 
 # Generate hardware-configuration.nix

@@ -111,7 +111,7 @@
   users.users.stephan = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    hashedPassword = "/persist/passwords/stephan";
+    hashedPasswordFile = "/persist/passwords/stephan";
   };
 
   environment.systemPackages = with pkgs; [

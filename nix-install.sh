@@ -12,7 +12,7 @@ read -p "Enter a password for the primary user: " password
 echo -n "$password" > /tmp/secret.key
 
 # Run disko to format and mount partitions
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"$device"'
+sudo nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"$device"'
 
 # set user password
 sudo mkpasswd -m sha-512 "$password" > /mnt/persist/passwords/stephanecho -n "$password" > /tmp/secret.key

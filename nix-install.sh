@@ -33,4 +33,4 @@ sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device
 sudo nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
 
 # Reboot system
-sudo reboot
+# sudo reboot

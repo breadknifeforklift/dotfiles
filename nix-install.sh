@@ -16,7 +16,8 @@ sudo nix --extra-experimental-features "nix-command flakes" run github:nix-commu
 
 # set user password
 sudo mkdir /mnt/persist/passwords
-sudo mkpasswd -m sha-512 "$password" > /mnt/persist/passwords/stephan
+echo "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwords/stephan/ > /dev/null
+
 
 # Generate hardware-configuration.nix
 sudo nixos-generate-config --no-filesystems --root /mnt
@@ -29,7 +30,7 @@ sudo nix --extra-experimental-features "nix-command flakes" flake init --templat
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
-nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
+sudo nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
 
 # Reboot system
 sudo reboot

@@ -9,11 +9,6 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
           esp = {
             name = "ESP";
             size = "512M";
@@ -32,18 +27,19 @@
             };
           };
           nixenc = {
-            name = "nixenc";
             size = "100%";
+            label = "nixenc";
             content = {
+              name = "nixenc";
               type = "luks";
-              passphrase = "your_passphrase_here";
+              passwordFile = "/tmp/secret.key";
               settings = {
                 allowDiscards = true;
-              }
+              };
               content = {
                 type = "lvm_pv";
                 vg = "root_vg";
-              }
+              };
             };
           };
         };
@@ -77,7 +73,8 @@
                 "/home" = {
                   mountOptions = ["home=" "compress=zstd" "noatime"];
                   mountpoint = "/home";
-                };              };
+                };
+              };
             };
           };
         };

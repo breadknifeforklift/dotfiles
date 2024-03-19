@@ -4,49 +4,12 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-
-  boot.initrd.luks.devices."nixenc".device = "/dev/disk/by-uuid/0cf7ce23-adff-4bf5-9b35-119f02b51a39";
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1ccc9bd9-d05c-4a2e-850c-913a8bb5276c";
-      fsType = "btrfs";
-      options = [ "subvol=root" ];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/1ccc9bd9-d05c-4a2e-850c-913a8bb5276c";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/1ccc9bd9-d05c-4a2e-850c-913a8bb5276c";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/1ccc9bd9-d05c-4a2e-850c-913a8bb5276c";
-      fsType = "btrfs";
-      options = [ "subvol=persist" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9828-0CFE";
-      fsType = "vfat";
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/f284b9d2-71d4-4ce6-96f5-bc135dc8eb5d"; }
-    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -57,5 +20,4 @@
   # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -17,12 +17,14 @@
     auto-optimise-store = true;
   };
 
-  # filesystems
-  fileSystems."/".options = [ "compress=zstd" "noatime" ];
-  fileSystems."/home".options = [ "compress=zstd" "noatime" ];
-  fileSystems."/nix".options = [ "compress=zstd" "noatime" ];
-  fileSystems."/persist".options = [ "compress=zstd" "noatime" ];
-  fileSystems."/persist".neededForBoot = true;
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "nixos"; # Define your hostname.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  time.timeZone = "America/New_York";
 
   # reset / at each boot
   boot.initrd = {
@@ -33,11 +35,11 @@
       description = "Rollback btrfs rootfs";
       wantedBy = [ "initrd.target" ];
       requires = [
-        "dev-nvme0n1p3"
+        "dev-xvda3"
       ];
       after = [
-        "dev-nvme0n1p3"
-        "systemd-cryptsetup@${hostname}.service"
+        "dev-xvda3"
+        "systemd-cryptsetup@nixenc.service"
       ];
       before = [ "sysroot.mount" ];
       unitConfig.DefaultDependencies = "no";
@@ -46,7 +48,7 @@
         mkdir -p /mnt
         # We first mount the btrfs root to /mnt
         # so we can manipulate btrfs subvolumes.
-        mount -o subvol=/ /dev/mapper/nixenc /mnt
+        mount -o subvol=/ /dev/mapper/root_vg-root /mnt
         # While we're tempted to just delete /root and create
         # a new snapshot from /root-blank, /root is already
         # populated at this point with a number of subvolumes,
@@ -79,9 +81,11 @@
     };
   };
 
+  fileSystems."/persist".neededForBoot = true;
   # configure impermanence
   environment.persistence."/persist" = {
     directories = [
+      "/etc/nixos"
       "/etc/NetworkManager/system-connections"
       "/var/lib/bluetooth"
     ];
@@ -102,15 +106,6 @@
     # rollback results in sudo lectures after each reboot
     Defaults lecture = never
   '';
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  time.timeZone = "America/New_York";
 
   users.mutableUsers = false;
   users.users.stephan = {

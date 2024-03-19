@@ -13,7 +13,7 @@
 
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follow = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -27,12 +27,12 @@
   }@inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs }; # forward inputs to modules
+        specialArgs = { inherit inputs; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default
-          (import ./disko.nix { device = "/dev/nvme0n1"; })
+          (import ./disko.nix { device = "/dev/xvda"; })
 
-          ./configuration.Nix
+          ./configuration.nix
           inputs.home-manager.nixosModules.default
           inputs.impermanence.nixosModules.impermanence
         ];

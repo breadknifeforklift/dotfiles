@@ -15,14 +15,14 @@ echo -n "$password" > /tmp/secret.key
 sudo nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"$device"'
 
 # set user password
-sudo mkpasswd -m sha-512 "$password" > /mnt/persist/passwords/stephanecho -n "$password" > /tmp/secret.key
+sudo mkpasswd -m sha-512 "$password" > /mnt/persist/passwords/stephan
 
 # Generate hardware-configuration.nix
 sudo nixos-generate-config --no-filesystems --root /mnt
 
 # Initialize flake
 pushd /mnt/etc/nixos
-nix flake init --template github.com:breadknifeforklift/nixos-config
+nix --extra-experimental-features "nix-command flakes" flake init --template github.com:breadknifeforklift/nixos-config
 
 find flake.nix -type f -exec sed -i "s|device = \"sda\"|device = \"$device\"|g" {} \;
 

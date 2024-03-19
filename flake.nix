@@ -26,6 +26,11 @@
     home-manager,
     ...
   }@inputs: {
+    templates.default = {
+      description = "My default template";
+      path = ".";
+    };
+
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs device; }; # forward inputs to modules

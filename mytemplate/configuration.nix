@@ -34,11 +34,7 @@
       systemd.services.restore-root = {
       description = "Rollback btrfs rootfs";
       wantedBy = [ "initrd.target" ];
-      requires = [
-        "dev-${if builtins.hasPrefix "nvme" device then "${device}p3" else "${device}3"}"
-      ];
       after = [
-        "dev-${if builtins.hasPrefix "nvme" device then "${device}p3" else "${device}3"}"
         "systemd-cryptsetup@nixenc.service"
       ];
       before = [ "sysroot.mount" ];

@@ -21,6 +21,8 @@ sudo umount /mnt/root
 
 # set user password
 sudo mkdir /mnt/persist/passwords
+sudo mkdir /mnt/persist/home
+sudo mkdir /mnt/persist/system
 echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwords/stephan > /dev/null
 
 
@@ -35,7 +37,7 @@ sudo nix --extra-experimental-features "nix-command flakes" flake init --templat
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
-sudo nixos-install --root /mnt --flake /mnt/etc/nixos#nixos
+sudo nixos-install --root /mnt --no-root-passwd --flake /mnt/etc/nixos#nixos
 
 # Reboot system
 # sudo reboot

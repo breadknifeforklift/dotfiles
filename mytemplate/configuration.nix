@@ -35,10 +35,10 @@
       description = "Rollback btrfs rootfs";
       wantedBy = [ "initrd.target" ];
       requires = [
-        "dev-${device}3"
+        "dev-${if builtins.hasPrefix "nvme" device then "${device}p3" else "${device}3"}"
       ];
       after = [
-        "dev-${device}3"
+        "dev-${if builtins.hasPrefix "nvme" device then "${device}p3" else "${device}3"}"
         "systemd-cryptsetup@nixenc.service"
       ];
       before = [ "sysroot.mount" ];
@@ -83,7 +83,7 @@
 
   fileSystems."/persist".neededForBoot = true;
   # configure impermanence
-  environment.persistence."/persist" = {
+  environment.persistence."/persist/system" = {
     directories = [
       "/etc/nixos"
       "/etc/NetworkManager/system-connections"

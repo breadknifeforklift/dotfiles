@@ -41,6 +41,7 @@
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''
+        echo "!!!! Running custom service post decrypt !!!!"
         mkdir -p /mnt
         # We first mount the btrfs root to /mnt
         # so we can manipulate btrfs subvolumes.

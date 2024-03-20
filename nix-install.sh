@@ -15,7 +15,7 @@ echo -n "$password" > /tmp/secret.key
 sudo nix --extra-experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device "\"$device\""
 # mount root subvolume and take a snapshot
 sudo mkdir -p /mnt/root
-sudo mount -o subvol=root /dev/mapper/nixenc /mnt/root
+sudo mount -o subvol=root /dev/mapper/root_vg-root /mnt/root
 sudo btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 sudo umount /mnt/root
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-curl https://raw.githubusercontent.com/breadknifeforklift/nixos-config/main/mytemplate/disko.nix -o /tmp/disko.nix
+curl https://raw.githubusercontent.com/breadknifeforklift/dotfiles/main/disko.nix -o /tmp/disko.nix
 
 # List the disks and ask the user to select one
 echo "Available disks:"
@@ -29,8 +29,8 @@ echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwo
 # Generate hardware-configuration.nix
 
 # clone repo
-git clone https://github.com/breadknifeforklift/nixos-config.git /mnt/home/stephan/nixos-config
-sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/nixos-config
+git clone https://github.com/breadknifeforklift/nixos-config.git /mnt/home/stephan/dotfiles
+sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/dotfiles
 
 pushd /mnt/home/stephan/nixos-config/mytemplate
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;

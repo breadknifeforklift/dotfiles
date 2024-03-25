@@ -24,6 +24,10 @@
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
+  system.autoUpgrade = {
+    enable = true;
+  };
+
   time.timeZone = "America/New_York";
 
   # reset / at each boot
@@ -84,6 +88,8 @@
   #     "stephan" = import ./home.nix;
   #   };
   # };
+
+  security.polkit.enable = true; # needed for Sway Home-Manager install
 
   security.sudo.extraConfig = ''
     # rollback results in sudo lectures after each reboot

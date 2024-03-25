@@ -15,6 +15,16 @@
     allowOther = true;
   };
 
+  fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [
+    nerdfonts
+  ];
+
+  wayland.windowManager.sway = {
+    enable = true;
+    extraConfig = pkgs.lib.readFile ./programs/sway.config;
+  };
+
   programs = {
     git = {
       enable = true;
@@ -54,8 +64,18 @@
           color_schemes = {
             [ "Custppuccin" ] = custom,
           },
+          font = wezterm.font 'Fira Code'
+          font_size = 14.0,
           color_scheme = "Custppuccin",
-          hide_tab_bar_if_only_one_tab = true,
+          enable_tab_bar = false,
+          term = "wezterm",
+          keys = {
+            {
+              key = "t",
+              mods = "SUPER",
+              action = wezterm.action.DisableDefaultAssignment,
+            },
+          },
         }
       '';
     };

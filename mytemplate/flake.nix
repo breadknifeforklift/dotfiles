@@ -33,8 +33,13 @@
           (import ./disko.nix)
 
           ./configuration.nix
-          inputs.home-manager.nixosModules.default
           inputs.impermanence.nixosModules.impermanence
+          home-manager.nixosModules.home-manager {
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.stephan = import ./home.nix;
+          }
         ];
       };
     };

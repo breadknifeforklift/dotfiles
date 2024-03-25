@@ -27,17 +27,16 @@ echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwo
 
 
 # Generate hardware-configuration.nix
-sudo nixos-generate-config --no-filesystems --root /mnt
 
-# Initialize flake
-pushd /mnt/etc/nixos
-sudo rm -f configuration.nix
-sudo nix --extra-experimental-features "nix-command flakes" flake init --template github:breadknifeforklift/nixos-config
+# clone repo
+git clone https://github.com/breadknifeforklift/nixos-config.git /mnt/home/stephan/nixos-config
+sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/nixos-config
 
+pushd /mnt/home/stephan/nixos-config/mytemplate
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
-sudo nixos-install --root /mnt --no-root-passwd --flake /mnt/etc/nixos#nixos
+sudo nixos-install --root /mnt --no-root-passwd --flake .#nixos
 
 # Reboot system
 # sudo reboot

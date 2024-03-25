@@ -29,7 +29,7 @@ echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwo
 # Generate hardware-configuration.nix
 
 # clone repo
-git clone https://github.com/breadknifeforklift/nixos-config.git /mnt/home/stephan/dotfiles
+git clone https://github.com/breadknifeforklift/dotfiles.git /mnt/home/stephan/dotfiles
 sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/dotfiles
 
 pushd /mnt/home/stephan/nixos-config/mytemplate

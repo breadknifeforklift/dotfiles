@@ -22,7 +22,7 @@
 
   wayland.windowManager.sway = {
     enable = true;
-    extraConfig = pkgs.lib.readFile ./programs/sway.config;
+    extraConfig = pkgs.lib.readFile ./config/sway.config;
   };
 
   programs = {

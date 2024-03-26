@@ -54,7 +54,14 @@
       enableFishIntegration = true;
     };
     bat.enable = true;
-    lf.enable = true;
+    lf = {
+      enable = true;
+      previewer.source = pkgs.writeShellScript "pv.sh" ''
+      #!/bin/sh
+      bat --color always "$@"
+      '';
+    };
+    ### set bat as previewer
     git = {
       enable = true;
       userName = "breadknifeforklift";

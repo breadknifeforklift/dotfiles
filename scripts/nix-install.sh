@@ -21,7 +21,7 @@ sudo umount /mnt/root
 
 # set user password
 sudo mkdir /mnt/persist/passwords
-sudo mkdir -p /mnt/persist/home/stephan/dotfiles
+sudo mkdir /mnt/persist/home
 sudo mkdir /mnt/persist/system
 echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwords/stephan > /dev/null
 
@@ -29,15 +29,16 @@ echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwo
 # Generate hardware-configuration.nix
 
 # clone repo
-git clone https://github.com/breadknifeforklift/dotfiles.git /mnt/home/stephan/dotfiles
+sudo mkdir -p /mnt/home/stephan
+sudo git clone https://github.com/breadknifeforklift/dotfiles.git /mnt/home/stephan/dotfiles
 sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/dotfiles
 
 pushd /mnt/home/stephan/dotfiles
-git add hardware-configuration.nix
+sudo git add hardware-configuration.nix
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
-sudo nixos-install --root /mnt --no-root-passwd --flake .
+sudo nixos-install --root /mnt --no-root-passwd --flake .#nixos
 
 # Reboot system
 # sudo reboot

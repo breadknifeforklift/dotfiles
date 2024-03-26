@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 
 { 
   imports = [
@@ -7,22 +7,35 @@
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  home.persistence."/persist/home" = {
-    directories = [
-    ];
-    files = [
-    ];
-    allowOther = true;
-  };
+  # home.persistence."/persist/home" = {
+  #   directories = [
+  #   ];
+  #   files = [
+  #   ];
+  #   allowOther = true;
+  # };
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    nerdfonts
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
   wayland.windowManager.sway = {
     enable = true;
-    extraConfig = pkgs.lib.readFile ./config/sway.config;
+    config = rec{
+      modifier = "Mod4";
+      terminal = "wezterm";
+      output."*" = {
+	  bg = "#272c35 solid_color";
+      };
+      fonts = {
+        names = [ "FiraCode Nerd Font" ];
+	size = 11.0;
+      };
+      keybindings = lib.mkOptionDefault { 
+        "${modifier}+Shift+e" = "exec swaymsg exit";
+      };
+    };
   };
 
   programs = {
@@ -64,7 +77,7 @@
           color_schemes = {
             [ "Custppuccin" ] = custom,
           },
-          font = wezterm.font 'Fira Code'
+          font = wezterm.font 'FiraCode Nerd Font',
           font_size = 14.0,
           color_scheme = "Custppuccin",
           enable_tab_bar = false,

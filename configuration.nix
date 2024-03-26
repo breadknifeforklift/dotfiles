@@ -36,22 +36,20 @@
     supportedFilesystems = [ "btrfs" ];
     systemd.enable = lib.mkDefault true;
 
-    let
-      root-rollback = pkgs.writeScript "root-rollback" (builtins.readFile ./scripts/echo-test.sh);
+    systemd.services.restore-root = let
+    root-rollback = pkgs.writeScript "root-rollback" (builtins.readFile ./scripts/echo-test.sh);
     in
     {
-      systemd.services.restore-root = {
-        description = "Rollback btrfs rootfs";
-        wantedBy = [ "initrd.target" ];
-        after = [
-          "systemd-cryptsetup@nixenc.service"
-        ];
-        before = [ "sysroot.mount" ];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = "${root-rollback}";
-      };
-    }
+      description = "Rollback btrfs rootfs";
+      wantedBy = [ "initrd.target" ];
+      after = [
+        "systemd-cryptsetup@nixenc.service"
+      ];
+      before = [ "sysroot.mount" ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig.Type = "oneshot";
+      script = "${root-rollback}";
+    };
   };
   boot.initrd.systemd.services.persisted-files = {
     description = "Hard-link persisted files from /persist";
@@ -116,6 +114,11 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   programs.neovim = {
     enable = true;

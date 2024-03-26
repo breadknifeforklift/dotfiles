@@ -28,6 +28,7 @@
       output."*" = {
 	  bg = "#272c35 solid_color";
       };
+      window.titlebar = false;
       fonts = {
         names = [ "FiraCode Nerd Font" ];
 	size = 11.0;
@@ -39,6 +40,9 @@
   };
 
   programs = {
+    fish = {
+      enable = true;
+    };
     git = {
       enable = true;
       userName = "breadknifeforklift";
@@ -78,7 +82,7 @@
             [ "Custppuccin" ] = custom,
           },
           font = wezterm.font 'FiraCode Nerd Font',
-          font_size = 14.0,
+          font_size = 11.0,
           color_scheme = "Custppuccin",
           enable_tab_bar = false,
           term = "wezterm",

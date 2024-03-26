@@ -43,6 +43,18 @@
     fish = {
       enable = true;
     };
+    eza = {
+      enable = true;
+      enableFishIntegration = true;
+      git = true;
+      icons = true;
+    };
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    bat.enable = true;
+    lf.enable = true;
     git = {
       enable = true;
       userName = "breadknifeforklift";

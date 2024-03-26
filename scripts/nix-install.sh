@@ -32,11 +32,12 @@ echo -n "$password" | sudo mkpasswd -m sha-512 -s | sudo tee /mnt/persist/passwo
 git clone https://github.com/breadknifeforklift/dotfiles.git /mnt/home/stephan/dotfiles
 sudo nixos-generate-config --no-filesystems --root /mnt --dir /mnt/home/stephan/dotfiles
 
-pushd /mnt/home/stephan/nixos-config/mytemplate
+pushd /mnt/home/stephan/dotfiles
+git add hardware-configuration.nix
 sudo find flake.nix -type f -exec sed -i "s|device = \"sda\";|device = \"$device\";|g" {} \;
 
 # Install NixOS
-sudo nixos-install --root /mnt --no-root-passwd --flake .#nixos
+sudo nixos-install --root /mnt --no-root-passwd --flake .
 
 # Reboot system
 # sudo reboot

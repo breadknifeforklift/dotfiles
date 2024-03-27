@@ -18,7 +18,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    nvim-pkg
+    # nvim-pkg
   ];
 
   wayland.windowManager.sway = {
@@ -99,7 +99,7 @@
     neovim = {
       enable = true;
       defaultEditor = true;
-      # package = pkgs.nvim-pkg;
+      package = pkgs.nvim-pkg;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

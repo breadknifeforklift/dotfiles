@@ -22,7 +22,7 @@
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
+    # EDITOR = "nvim";
     VISUAL = "nvim";
   };
   wayland.windowManager.sway = {

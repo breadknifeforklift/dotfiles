@@ -16,7 +16,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kickstart-nix = {
-      url = "github:breadknifeforklift/kickstart-nix.nvim";
+      # url = "github:breadknifeforklift/kickstart-nix.nvim";
+      url = "path:./kickstart-nix";
     };
   };
 

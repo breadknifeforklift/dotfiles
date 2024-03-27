@@ -25,6 +25,7 @@
     config = rec{
       modifier = "Mod4";
       terminal = "wezterm";
+      menu = "wofi --show drun";
       output."*" = {
 	  bg = "#272c35 solid_color";
       };
@@ -65,6 +66,7 @@
       enable = true;
       enableFishIntegration = true;
     };
+    wofi.enable = true;
     git = {
       enable = true;
       userName = "breadknifeforklift";

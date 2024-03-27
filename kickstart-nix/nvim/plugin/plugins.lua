@@ -12,9 +12,9 @@ require('which-key').setup()
 require("catppuccin").setup {
   color_overrides = {
     macchiato = {
-      base: "#272c35",
-      mantle: "#21242c",
-      crust: "#1a1c23"
+      base = "#272c35",
+      mantle = "#21242c",
+      crust = "#1a1c23"
     },
   }
 }

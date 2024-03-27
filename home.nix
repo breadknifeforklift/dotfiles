@@ -56,6 +56,12 @@
         vim = "nvim";
         vi = "nvim";
       };
+      functions = {
+        fish_greeting = {
+          description = "fish shell greeting";
+          body = "";
+        };
+      };
     };
     eza = {
       enable = true;

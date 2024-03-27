@@ -15,6 +15,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kickstart-nix = {
+      url = "github:breadknifeforklift/kickstart-nix.nvim"
+    };
   };
 
   # what will be produced (i.e. the build)
@@ -25,6 +28,9 @@
     home-manager,
     ...
   }@inputs: {
+    nixpkgs.overlays = [
+      kickstart-nix.overlays.default
+    ];
     nixosConfigurations = let device = "sda"; in {
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs device; }; # forward inputs to modules
@@ -39,6 +45,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.stephan = import ./home.nix;
+            nixpkgs.overlays = inputs.self.nixpkgs.overlays;
           }
         ];
       };

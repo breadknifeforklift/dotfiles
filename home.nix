@@ -18,6 +18,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nvim-pkg
   ];
 
   wayland.windowManager.sway = {
@@ -61,7 +62,6 @@
       bat --color always "$@"
       '';
     };
-    ### set bat as previewer
     git = {
       enable = true;
       userName = "breadknifeforklift";
@@ -86,10 +86,10 @@
         };
       };
     };
-    neovim = {
-      enable = true;
-      extraConfig = ''set number relativenumber'';
-    };
+    # neovim = {
+    #   enable = true;
+    #   extraConfig = ''set number relativenumber'';
+    # };
     wezterm = {
       enable = true;
       extraConfig = ''

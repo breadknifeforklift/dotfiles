@@ -18,9 +18,13 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    # nvim-pkg
+    nvim-pkg
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -48,6 +52,10 @@
   programs = {
     fish = {
       enable = true;
+      shellAliases = {
+        vim = "nvim";
+        vi = "nvim";
+      };
     };
     eza = {
       enable = true;
@@ -96,14 +104,14 @@
         };
       };
     };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      package = pkgs.nvim-pkg;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
+    # neovim = {
+    #   enable = true;
+    #   defaultEditor = true;
+    #   package = pkgs.nvim-pkg;
+    #   viAlias = true;
+    #   vimAlias = true;
+    #   vimdiffAlias = true;
+    # };
     wezterm = {
       enable = true;
       extraConfig = ''

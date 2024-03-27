@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kickstart-nix = {
-      url = "github:breadknifeforklift/kickstart-nix.nvim"
+      url = "github:breadknifeforklift/kickstart-nix.nvim";
     };
   };
 
@@ -29,7 +29,7 @@
     ...
   }@inputs: {
     nixpkgs.overlays = [
-      kickstart-nix.overlays.default
+      inputs.kickstart-nix.overlays.default
     ];
     nixosConfigurations = let device = "sda"; in {
       nixos = nixpkgs.lib.nixosSystem {

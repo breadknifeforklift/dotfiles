@@ -23,6 +23,7 @@
 
   wayland.windowManager.sway = {
     enable = true;
+    wrapperFeatures.gtk = true;
     config = rec{
       modifier = "Mod4";
       terminal = "wezterm";
@@ -38,6 +39,9 @@
       keybindings = lib.mkOptionDefault { 
         "${modifier}+Shift+e" = "exec swaymsg exit";
       };
+      startup = [
+        { command = "wezterm"; }
+      ];
     };
   };
 
@@ -92,10 +96,14 @@
         };
       };
     };
-    # neovim = {
-    #   enable = true;
-    #   extraConfig = ''set number relativenumber'';
-    # };
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      package = pkgs.nvim-pkg;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
     wezterm = {
       enable = true;
       extraConfig = ''

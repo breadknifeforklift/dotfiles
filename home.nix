@@ -99,7 +99,7 @@
     neovim = {
       enable = true;
       defaultEditor = true;
-      package = pkgs.nvim-pkg;
+      # package = pkgs.nvim-pkg;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;

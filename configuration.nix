@@ -89,10 +89,23 @@
 
   security.polkit.enable = true; # needed for Sway Home-Manager install
 
-  security.sudo.extraConfig = ''
-    # rollback results in sudo lectures after each reboot
-    Defaults lecture = never
-  '';
+  security.sudo = {
+    extraConfig = ''
+      # rollback results in sudo lectures after each reboot
+      Defaults lecture = never
+    '';
+    extraRules = lib.mkBefore [
+      {
+        users = [ "stephan" ];
+        commands = [
+          {
+            command = "ALL";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
+  };
 
   users.mutableUsers = false;
   users.users.stephan = {
@@ -196,6 +209,7 @@
 
   # List services that you want to enable:
 
+  services.getty.autologinUser = "stephan";
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

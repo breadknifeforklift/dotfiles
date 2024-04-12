@@ -31,14 +31,14 @@
     config = rec{
       modifier = "Mod4";
       terminal = "wezterm";
-      menu = "wofi --show drun";
+      menu = "wofi --show drun --allow-images";
       output."*" = {
-	  bg = "#272c35 solid_color";
+    	  bg = "#272c35 solid_color";
       };
       window.titlebar = false;
       fonts = {
         names = [ "FiraCode Nerd Font" ];
-	size = 12.0;
+      	size = 12.0;
       };
       keybindings = lib.mkOptionDefault { 
         "${modifier}+Shift+e" = "exec swaymsg exit";
@@ -85,7 +85,12 @@
       enable = true;
       enableFishIntegration = true;
     };
-    wofi.enable = true;
+    wofi = {
+      enable = true;
+      settings = {
+        gtk_dark = true;
+      };
+    };
     git = {
       enable = true;
       userName = "breadknifeforklift";
@@ -118,6 +123,22 @@
     #   vimAlias = true;
     #   vimdiffAlias = true;
     # };
+    helix = {
+      enable = true;
+      defaultEditor = true;
+      settings = {
+        theme = "catppuccin_macchiato";
+        editor = {
+          line-number = "relative";
+          cursorline = true;
+          lsp.display-messages = true;
+          indent-guides = {
+            character = "|";
+            render = true;
+          };
+        };
+      };
+    };
     wezterm = {
       enable = true;
       extraConfig = ''

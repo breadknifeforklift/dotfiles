@@ -22,8 +22,8 @@
   ];
 
   home.sessionVariables = {
-    # EDITOR = "nvim";
-    VISUAL = "nvim";
+    EDITOR = "hx";
+    VISUAL = "hx";
   };
   wayland.windowManager.sway = {
     enable = true;
@@ -53,8 +53,8 @@
     fish = {
       enable = true;
       shellAliases = {
-        vim = "nvim";
-        vi = "nvim";
+        vim = "hx";
+        vi = "hx";
       };
       functions = {
         fish_greeting = {
@@ -126,8 +126,19 @@
     helix = {
       enable = true;
       defaultEditor = true;
+      themes = {
+        custppuccin = {
+          inherits = "catppuccin_macchiato";
+          palette = {
+            base = "#272c35";
+            mantle = "21242c";
+            crust = "#1a1c23";
+            cursorline = "#343941";
+          };
+        };
+      };
       settings = {
-        theme = "catppuccin_macchiato";
+        theme = "custppuccin";
         editor = {
           line-number = "relative";
           cursorline = true;

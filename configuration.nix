@@ -118,6 +118,7 @@
     git
     wget
     curl
+    nil # nix lsp
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

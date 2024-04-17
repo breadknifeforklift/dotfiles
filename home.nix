@@ -140,11 +140,16 @@
       settings = {
         theme = "custppuccin";
         editor = {
+          mouse = false;
           line-number = "relative";
           cursorline = true;
-          lsp.display-messages = true;
+          lsp = {
+            display-messages = true;
+            auto-signature-help = true;
+            display-inlay-hints = true;
+          };
           indent-guides = {
-            character = "|";
+            character = "┆";
             render = true;
           };
         };
@@ -174,6 +179,10 @@
           },
         }
       '';
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 }

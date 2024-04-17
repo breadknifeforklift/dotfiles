@@ -18,13 +18,19 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    nvim-pkg
+    dconf # used for backend to GNOME settings when no desktop env
   ];
 
   home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
   };
+
+  xdg.configFile."gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-application-prefer-dark-theme = true
+  '';
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;

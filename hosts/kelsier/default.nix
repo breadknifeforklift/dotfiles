@@ -96,7 +96,7 @@
     '';
     extraRules = lib.mkBefore [
       {
-        users = [ "stephan" ];
+        users = [ "sdober" ];
         commands = [
           {
             command = "ALL";
@@ -108,7 +108,7 @@
   };
 
   users.mutableUsers = false;
-  users.users.stephan = {
+  users.users.sdober = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = "/persist/passwords/stephan";

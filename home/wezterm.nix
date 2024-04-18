@@ -1,3 +1,4 @@
+{ pkgs, config, lib, ...}:
 {
   programs = {
     wezterm = {

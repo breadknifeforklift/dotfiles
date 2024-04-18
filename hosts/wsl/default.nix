@@ -10,8 +10,8 @@
 {
 
   imports = [
-    ../modules/system.nix
-    ../modules/firefox.nix
+    ../../modules/system.nix
+    ../../modules/firefox.nix
     # ./wg.nix
   ];
 

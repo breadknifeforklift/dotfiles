@@ -1,13 +1,10 @@
 { pkgs, config, lib, ...}:
-let
-  inherit (config.extraSpecialArgs) mod;  # Access your option here
-in
 {
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     config = rec{
-      modifier = ${mod};
+      modifier = "Mod1";
       terminal = "wezterm";
       menu = "wofi --show drun --allow-images";
       output."*" = {

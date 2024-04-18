@@ -9,7 +9,7 @@
           inherits = "catppuccin_macchiato";
           palette = {
             base = "#272c35";
-            mantle = "21242c";
+            mantle = "#21242c";
             crust = "#1a1c23";
             cursorline = "#343941";
           };

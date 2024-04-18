@@ -31,8 +31,8 @@
     home-manager,
     ...
   }@inputs: {
-    nixosConfigurations = let device = "sda"; in {
-      kelsier = nixpkgs.lib.nixosSystem {
+    nixosConfigurations = {
+      kelsier = let device = "nvme0n1"; in nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs device; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default

@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ../../modules/system.nix
       ../../modules/firefox.nix
+      ../../modules/audio.nix
       ./hardware-configuration.nix
     ];
 
@@ -17,7 +18,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "kelsier"; # Define your hostname.
-  networking.nameservers = [ "9.9.9.9" ];
   
   # reset / at each boot
   boot.initrd = {

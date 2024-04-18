@@ -40,7 +40,7 @@
           ./hosts/kelsier
           inputs.impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = { inherit inputs; mod = "Mod4"; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.sdober = import ./home;
@@ -54,7 +54,7 @@
           nixos-wsl.nixosModules.wsl
           ./hosts/wsl
           home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = { inherit inputs; mod = "Mod1"; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.nixos = import ./home;

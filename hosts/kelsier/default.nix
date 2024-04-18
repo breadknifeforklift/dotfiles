@@ -19,32 +19,6 @@
   networking.hostName = "kelsier"; # Define your hostname.
   networking.nameservers = [ "9.9.9.9" ];
   
-  users.mutableUsers = false;
-  users.users.sdober = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    initialPassword = "password";
-  };
-
-  security.sudo = {
-    extraConfig = ''
-      # rollback results in sudo lectures after each reboot
-      Defaults lecture = never
-    '';
-    extraRules = lib.mkBefore [
-      {
-        users = [ "sdober" ];
-        commands = [
-          {
-            command = "ALL";
-            options = [ "NOPASSWD" ];
-          }
-        ];
-      }
-    ];
-  };
-
-  services.getty.autologinUser = "sdober";
   # reset / at each boot
   boot.initrd = {
     enable = true;

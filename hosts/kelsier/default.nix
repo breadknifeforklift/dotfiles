@@ -7,28 +7,17 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      ../modules/system.nix
+      ../modules/firefox.nix
       ./hardware-configuration.nix
     ];
-
-  nix.settings = {
-    # Enable flakes and new 'nix' command
-    experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
-    auto-optimise-store = true;
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  system.autoUpgrade = {
-    enable = true;
-  };
-
-  time.timeZone = "America/New_York";
+  networking.hostName = "kelsier"; # Define your hostname.
+  networking.nameservers = [ "9.9.9.9" ];
 
   # reset / at each boot
   boot.initrd = {
@@ -79,151 +68,6 @@
     ];
   };
 
-  programs.fuse.userAllowOther = true;
-  # home-manager = {
-  #   extraSpecialArgs = { inherit inputs; };
-  #   users = {
-  #     "stephan" = import ./home.nix;
-  #   };
-  # };
-
-  security.polkit.enable = true; # needed for Sway Home-Manager install
-
-  security.sudo = {
-    extraConfig = ''
-      # rollback results in sudo lectures after each reboot
-      Defaults lecture = never
-    '';
-    extraRules = lib.mkBefore [
-      {
-        users = [ "sdober" ];
-        commands = [
-          {
-            command = "ALL";
-            options = [ "NOPASSWD" ];
-          }
-        ];
-      }
-    ];
-  };
-
-  users.mutableUsers = false;
-  users.users.sdober = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    hashedPasswordFile = "/persist/passwords/stephan";
-  };
-
-  environment.systemPackages = with pkgs; [
-    git
-    wget
-    curl
-    nil # nix lsp
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  programs.fish.enable = true;
-
-  # since fish isn't POSIX compliant this is a
-  # workaround to setting fish as default shell
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
-
-  # programs.neovim = {
-  #   enable = true;
-  #   defaultEditor = true;
-  #   viAlias = true;
-  #   vimAlias = true;
-  # };
-
-  programs.firefox = {
-    enable = true;
-    /* ---- POLICIES ---- */
-    # Check about:policies#documentation for options.
-    policies = {
-      DisableTelemetry = true;
-      DisableFirefoxStudies = true;
-      EnableTrackingProtection = {
-        Value= true;
-        Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-      };
-      DisablePocket = true;
-      DisableFirefoxAccounts = true;
-      DisableAccounts = true;
-      # DisableFirefoxScreenshots = true;
-      OverrideFirstRunPage = "";
-      OverridePostUpdatePage = "";
-      DontCheckDefaultBrowser = true;
-      DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
-      DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
-      SearchBar = "unified"; # alternative: "separate"
-      SearchEngines = {
-        Default = "DuckDuckGo";
-      };
-
-      /* ---- EXTENSIONS ---- */
-      # Check about:support for extension/add-on ID strings.
-      # Valid strings for installation_mode are "allowed", "blocked",
-      # "force_installed" and "normal_installed".
-      ExtensionSettings = {
-        "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
-        # uBlock Origin:
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        # Privacy Badger:
-        "jid1-MnnxcxisBPnSXQ@jetpack" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        # Bitwarden:
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-          installation_mode = "force_installed";
-        };
-      };
-    };
-  };
-
-
-  # List services that you want to enable:
-
-  services.getty.autologinUser = "stephan";
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

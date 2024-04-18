@@ -37,7 +37,6 @@
         modules = [
           inputs.disko.nixosModules.default
           (import ./disko.nix)
-
           ./hosts/kelsier
           inputs.impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {

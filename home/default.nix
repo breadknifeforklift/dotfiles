@@ -2,7 +2,6 @@
 
 { 
   imports = [
-    ./sway.nix
     ./fish.nix
     ./helix.nix
     ./firefox.nix
@@ -29,8 +28,6 @@
   home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
-    XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir";
-    DISPLAY = ":0";
   };
 
   xdg.configFile."gtk-3.0/settings.ini".text = ''

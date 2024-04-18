@@ -43,7 +43,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.sdober = import ./home;
+            home-manager.users.sdober = import ./hosts/kelsier/home.nix;
           }
         ];
       };
@@ -57,7 +57,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.sdober = import ./home;
+            home-manager.users.sdober = import ./hosts/wsl/home.nix;
           }
         ];
       };

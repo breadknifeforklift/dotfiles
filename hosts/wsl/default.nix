@@ -16,11 +16,36 @@
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "sdober";
   wsl.wslConf.network.generateResolvConf = false;
   
   networking.nameservers = [ "9.9.9.9" ];
+  users.mutableUsers = false;
+  users.users.sdober = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    initialPassword = "password";
+  };
 
+  security.sudo = {
+    extraConfig = ''
+      # rollback results in sudo lectures after each reboot
+      Defaults lecture = never
+    '';
+    extraRules = lib.mkBefore [
+      {
+        users = [ "sdober" ];
+        commands = [
+          {
+            command = "ALL";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
+  };
+
+  services.getty.autologinUser = "sdober";
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave

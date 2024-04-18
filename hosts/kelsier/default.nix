@@ -20,11 +20,11 @@
   networking.nameservers = [ "9.9.9.9" ];
   
   users.mutableUsers = false;
-    users.users.sdober = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-      initialPassword = "password";
-    };
+  users.users.sdober = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    initialPassword = "password";
+  };
 
   security.sudo = {
     extraConfig = ''

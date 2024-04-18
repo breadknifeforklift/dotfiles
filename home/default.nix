@@ -44,6 +44,7 @@
       userName = "breadknifeforklift";
       userEmail = "breadknifeforklift@proton.me";
     };
+    lazygit.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;

@@ -16,10 +16,15 @@
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = "sdober";
+  wsl.defaultUser = "nixos";
   wsl.wslConf.network.generateResolvConf = false;
   
   networking.nameservers = [ "9.9.9.9" ];
+
+  home.sessionVariables = {
+    XDG_RUNTIME_DIR = "/mnt/wslg/runtime-dir";
+    DISPLAY = ":0";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

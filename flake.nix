@@ -36,7 +36,7 @@
         specialArgs = { inherit inputs device; }; # forward inputs to modules
         modules = [
           inputs.disko.nixosModules.default
-          (import ./disko.nix)
+          (import ./modules/disko.nix)
           ./hosts/kelsier
           inputs.impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {

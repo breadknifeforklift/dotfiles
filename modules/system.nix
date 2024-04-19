@@ -32,7 +32,7 @@
       # rollback results in sudo lectures after each reboot
       Defaults lecture = never
     '';
-    extraRules = lib.mkBefore [
+    extraRules = lib.mkAfter [
       {
         users = [ "sdober" ];
         commands = [

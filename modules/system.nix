@@ -12,6 +12,12 @@
     auto-optimise-store = true;
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+  
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   system.autoUpgrade = {

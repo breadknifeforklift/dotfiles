@@ -10,6 +10,7 @@
       ../../modules/system.nix
       ../../modules/firefox.nix
       ../../modules/audio.nix
+      ../../modules/wg.nix
       ./hardware-configuration.nix
     ];
 
@@ -18,6 +19,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "kelsier"; # Define your hostname.
+  
+  wg.ip = "10.1.2.4/24";
   
   boot.initrd = {
     luks.devices.nixenc = {

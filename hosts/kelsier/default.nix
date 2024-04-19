@@ -19,6 +19,14 @@
 
   networking.hostName = "kelsier"; # Define your hostname.
   
+  boot.initrd = {
+    luks.devices.nixenc = {
+      crypttabExtraOpts = [ "fido2-device=auto" ];
+      device = "/dev/disk/by-partlabel/nixenc";
+    };
+    systemd.enable = true;
+  };
+  
   # reset / at each boot
   # boot.initrd = {
   #   enable = true;

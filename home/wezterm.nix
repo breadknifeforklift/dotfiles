@@ -12,7 +12,7 @@
             [ "Custppuccin" ] = custom,
           },
           font = wezterm.font 'FiraCode Nerd Font',
-          font_size = 12.0,
+          font_size = 11.0,
           color_scheme = "Custppuccin",
           enable_tab_bar = false,
           term = "wezterm",

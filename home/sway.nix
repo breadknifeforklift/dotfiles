@@ -20,7 +20,7 @@
         window.titlebar = false;
         fonts = {
           names = [ "FiraCode Nerd Font" ];
-        	size = 12.0;
+        	size = 11.0;
         };
         keybindings = lib.mkOptionDefault { 
           "${modifier}+Shift+e" = "exec swaymsg exit";

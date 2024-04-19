@@ -49,6 +49,10 @@
       };
     };
     lazygit.enable = true;
+    keychain = {
+      enable = true;
+      keys = [];
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;

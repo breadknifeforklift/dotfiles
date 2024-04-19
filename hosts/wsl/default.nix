@@ -12,7 +12,7 @@
   imports = [
     ../../modules/system.nix
     ../../modules/firefox.nix
-    # ./wg.nix
+    ../../modules/wg.nix
   ];
 
   wsl.enable = true;

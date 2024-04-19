@@ -20,53 +20,53 @@
   networking.hostName = "kelsier"; # Define your hostname.
   
   # reset / at each boot
-  boot.initrd = {
-    enable = true;
-    supportedFilesystems = [ "btrfs" ];
-    systemd.enable = lib.mkDefault true;
+  # boot.initrd = {
+  #   enable = true;
+  #   supportedFilesystems = [ "btrfs" ];
+  #   systemd.enable = lib.mkDefault true;
 
-    systemd.services.restore-root = let
-    root-rollback = pkgs.writeScript "root-rollback" (builtins.readFile ./scripts/echo-test.sh);
-    in
-    {
-      description = "Rollback btrfs rootfs";
-      wantedBy = [ "initrd.target" ];
-      after = [
-        "systemd-cryptsetup@nixenc.service"
-      ];
-      before = [ "sysroot.mount" ];
-      unitConfig.DefaultDependencies = "no";
-      serviceConfig.Type = "oneshot";
-      script = "${root-rollback}";
-    };
-  };
-  boot.initrd.systemd.services.persisted-files = {
-    description = "Hard-link persisted files from /persist";
-    wantedBy = [
-      "initrd.target"
-    ];
-    after = [
-      "sysroot.mount"
-    ];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      mkdir -p /sysroot/etc/
-      ln -snfT /persist/system/etc/machine-id /sysroot/etc/machine-id
-    '';
-  };
+  #   systemd.services.restore-root = let
+  #   root-rollback = pkgs.writeScript "root-rollback" (builtins.readFile ./scripts/echo-test.sh);
+  #   in
+  #   {
+  #     description = "Rollback btrfs rootfs";
+  #     wantedBy = [ "initrd.target" ];
+  #     after = [
+  #       "systemd-cryptsetup@nixenc.service"
+  #     ];
+  #     before = [ "sysroot.mount" ];
+  #     unitConfig.DefaultDependencies = "no";
+  #     serviceConfig.Type = "oneshot";
+  #     script = "${root-rollback}";
+  #   };
+  # };
+  # boot.initrd.systemd.services.persisted-files = {
+  #   description = "Hard-link persisted files from /persist";
+  #   wantedBy = [
+  #     "initrd.target"
+  #   ];
+  #   after = [
+  #     "sysroot.mount"
+  #   ];
+  #   unitConfig.DefaultDependencies = "no";
+  #   serviceConfig.Type = "oneshot";
+  #   script = ''
+  #     mkdir -p /sysroot/etc/
+  #     ln -snfT /persist/system/etc/machine-id /sysroot/etc/machine-id
+  #   '';
+  # };
 
-  fileSystems."/persist".neededForBoot = true;
-  # configure impermanence
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/etc/nixos"
-      "/etc/NetworkManager/system-connections"
-      "/var/lib/bluetooth"
-    ];
-    files = [
-    ];
-  };
+  # fileSystems."/persist".neededForBoot = true;
+  # # configure impermanence
+  # environment.persistence."/persist/system" = {
+  #   directories = [
+  #     "/etc/nixos"
+  #     "/etc/NetworkManager/system-connections"
+  #     "/var/lib/bluetooth"
+  #   ];
+  #   files = [
+  #   ];
+  # };
 
 
   # This option defines the first version of NixOS you have installed on this particular machine,

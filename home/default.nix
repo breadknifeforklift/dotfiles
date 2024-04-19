@@ -40,6 +40,13 @@
       enable = true;
       userName = "breadknifeforklift";
       userEmail = "breadknifeforklift@proton.me";
+      extraConfig = {
+        init.defaultBranch = "main";
+        core.editor = "hx";
+        commit.gpgsign = true;
+        gpg.format = "ssh";
+        user.signingKey = "/home/sdober/.ssh/id_ed25519_sk_rk_git_breadknifeforklift.pub";
+      };
     };
     lazygit.enable = true;
     direnv = {

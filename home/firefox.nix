@@ -9,6 +9,7 @@
           name = "default";
           isDefault = true;
           settings = {
+            "signon.rememberSignons" = false;
             "browser.search.defaultenginename" = "DuckDuckGo";
             "browser.search.order.1" = "DuckDuckGo";
           };

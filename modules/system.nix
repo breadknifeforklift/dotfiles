@@ -29,7 +29,7 @@
   users.mutableUsers = false;
   users.users.sdober = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "video" ]; # Enable ‘sudo’ for the user.
     initialPassword = "password";
   };
 
